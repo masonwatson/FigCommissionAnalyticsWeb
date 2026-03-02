@@ -1,0 +1,30 @@
+<div class="insurance-carrier-pie-chart">
+  <kendo-chart
+    [chartArea]="chartArea"
+    [legend]="legend"
+    [tooltip]="tooltip"
+    [style.min-height.px]="700"
+    (legendItemClick)="$event.preventDefault()"
+  >
+    <kendo-chart-series>
+      <kendo-chart-series-item
+        type="pie"
+        [data]="pieData"
+        field="value"
+        categoryField="category"
+        [labels]="seriesLabels"
+      ></kendo-chart-series-item>
+    </kendo-chart-series>
+  </kendo-chart>
+
+  @if (zeroPercentCategories.length > 0) {
+    <aside class="insurance-carrier-pie-chart__zero-note" aria-label="Zero percent carriers">
+      <h3 class="insurance-carrier-pie-chart__zero-note-title">0% Carriers</h3>
+      <ul class="insurance-carrier-pie-chart__zero-note-list">
+        @for (carrier of zeroPercentCategories; track carrier) {
+          <li>{{ carrier }} (0.0%)</li>
+        }
+      </ul>
+    </aside>
+  }
+</div>

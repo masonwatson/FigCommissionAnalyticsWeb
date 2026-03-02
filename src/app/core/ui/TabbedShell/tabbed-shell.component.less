@@ -1,0 +1,146 @@
+.tabbed-shell {
+  --tab-pill-radius: 0.625rem;
+  display: block;
+  min-height: 100%;
+  background: var(--kendo-color-app-surface, #f3f6fb);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.tabbed-shell__content {
+  padding-top: 1rem;
+}
+
+:host ::ng-deep .tabbed-shell .tabbed-shell__tab-label {
+  display: inline-block;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--tab-pill-radius);
+  transition: background 120ms ease-in-out, color 120ms ease-in-out;
+  color: #ffffff;
+}
+
+:host ::ng-deep .tabbed-shell .tabbed-shell__tab-label--active {
+  background: color-mix(in srgb, var(--kendo-color-primary, #2f56ff) 80%, #ffffff 20%);
+  color: var(--kendo-color-on-primary, #ffffff);
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items-wrapper {
+  border: 1px solid color-mix(in srgb, var(--kendo-color-primary, #2f56ff) 75%, #ffffff 25%);
+  border-radius: 0.875rem;
+  background: var(--kendo-color-primary, #2f56ff);
+  padding: 0.35rem;
+  transition: none !important;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items {
+  gap: 0.25rem;
+  background: transparent !important;
+  transition: none !important;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-link {
+  font-weight: 600;
+  border-radius: var(--tab-pill-radius) !important;
+  color: #ffffff;
+  background: transparent !important;
+  border: 0 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items [role='tab'] {
+  border-radius: var(--tab-pill-radius) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  transition: none !important;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item:hover,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-hover,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item:focus,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-focus,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items [role='tab']:hover,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items [role='tab']:focus {
+  background: transparent !important;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items [role='tab'] > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item:hover > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-hover > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-focus > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-selected > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-active > .k-link {
+  border-radius: var(--tab-pill-radius) !important;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items [role='tab'][aria-selected='true'],
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item[aria-selected='true'] > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-selected > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-active > .k-link {
+  color: var(--kendo-color-on-primary, #ffffff) !important;
+  background: color-mix(in srgb, var(--kendo-color-primary, #2f56ff) 80%, #ffffff 20%) !important;
+  border-radius: var(--tab-pill-radius) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items [role='tab'][aria-selected='true'],
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item[aria-selected='true'],
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-selected,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-active {
+  border-radius: var(--tab-pill-radius) !important;
+  overflow: hidden;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-selected::before,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-selected::after,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-active::before,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-active::after,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item::before,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item::after,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items [role='tab']::before,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items [role='tab']::after,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-selected > .k-link::before,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-selected > .k-link::after,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-active > .k-link::before,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-active > .k-link::after,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-link::before,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-link::after {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  content: none !important;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-link:focus,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-link:focus-visible,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-link.k-focus,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-selected > .k-link:focus,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-selected > .k-link:focus-visible,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-active > .k-link:focus,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item.k-active > .k-link:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-content,
+:host ::ng-deep .tabbed-shell .k-content.k-tabstrip-content {
+  display: none;
+}
+
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item:not(.k-selected):not(.k-active) > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items [role='tab'][aria-selected='false'] > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item:not(.k-selected):not(.k-active):hover > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item:not(.k-selected):not(.k-active).k-hover > .k-link,
+:host ::ng-deep .tabbed-shell .k-tabstrip-items .k-item:not(.k-selected):not(.k-active).k-focus > .k-link {
+  background: transparent !important;
+  color: #ffffff !important;
+}

@@ -1,0 +1,47 @@
+<kendo-chart
+  [chartArea]="chartArea"
+  [legend]="legend"
+  [seriesDefaults]="seriesDefaults"
+  [transitions]="false"
+  [style.min-height.px]="700"
+>
+  <kendo-chart-category-axis>
+    <kendo-chart-category-axis-item
+      [categories]="categories"
+      [labels]="categoryAxisLabels"
+      [majorGridLines]="hiddenGridLines"
+      [majorTicks]="hiddenTicks"
+      [line]="axisLine"
+    ></kendo-chart-category-axis-item>
+  </kendo-chart-category-axis>
+
+  <kendo-chart-value-axis>
+    @if (isEmptyState) {
+      <kendo-chart-value-axis-item
+        [labels]="valueAxisLabels"
+        [min]="0"
+        [max]="1"
+        [majorUnit]="1"
+        [line]="hiddenLine"
+        [majorTicks]="hiddenTicks"
+        [majorGridLines]="valueGridLines"
+      ></kendo-chart-value-axis-item>
+    } @else {
+      <kendo-chart-value-axis-item
+        [labels]="valueAxisLabels"
+        [line]="hiddenLine"
+        [majorTicks]="hiddenTicks"
+        [majorGridLines]="valueGridLines"
+      ></kendo-chart-value-axis-item>
+    }
+  </kendo-chart-value-axis>
+
+  <kendo-chart-series>
+    <kendo-chart-series-item
+      type="line"
+      [data]="values"
+      [tooltip]="activeSeriesTooltip"
+      [color]="seriesColor"
+    ></kendo-chart-series-item>
+  </kendo-chart-series>
+</kendo-chart>

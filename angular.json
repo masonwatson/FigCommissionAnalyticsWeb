@@ -30,13 +30,15 @@
               }
             ],
             "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
               "src/styles.less"
             ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ]
           },
           "configurations": {
             "production": {
@@ -69,13 +71,21 @@
               "buildTarget": "fig-commission-analytics:build:production"
             },
             "development": {
-              "buildTarget": "fig-commission-analytics:build:development"
+              "buildTarget": "fig-commission-analytics:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              }
+            ]
+          }
         }
       }
     }

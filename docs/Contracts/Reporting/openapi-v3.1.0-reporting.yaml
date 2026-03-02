@@ -1,0 +1,436 @@
+openapi: 3.1.0
+info:
+    title: Commissions Reporting API
+    version: 1.0.0
+    description: >
+        Read-only reporting endpoints for commissions analytics.
+
+servers:
+    - url: https://api.example.com/v1
+
+tags:
+    - name: Reports
+      description: Reporting endpoints.
+
+paths:
+    /report/financialAdvisorSummary:
+        get:
+            tags: [Reports]
+            operationId: getFinancialAdvisorSummary
+            summary: Get Financial Advisor Summary
+            description: >
+                Provide a high-level financial summary of all financial advisors' commissions over a selectable date range.
+
+                Defaults when omitted:
+                - startDate: Past 12 months from today
+                - endDate: Current date
+                - sort: totalCommission+desc
+
+                Date bounds returned by this endpoint are global (dataset-wide).
+            parameters:
+                - $ref: "#/components/parameters/StartDate"
+                - $ref: "#/components/parameters/EndDate"
+                - name: sort
+                  in: query
+                  required: false
+                  description: >
+                      Sort specification in the form `{field}+{direction}` (e.g., `totalCommission+asc`, `agentName+desc`).
+                      The field should match an `agentSummaries[]` property.
+                  schema:
+                      type: string
+                      pattern: '^[A-Za-z][A-Za-z0-9]*\+(asc|desc)$'
+                  example: totalCommission+desc
+            responses:
+                "200":
+                    description: Financial advisor summary report.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/FinancialAdvisorSummaryResponse"
+                "400":
+                    description: Invalid date range.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                            examples:
+                                InvalidDateRange:
+                                    value:
+                                        status: 400
+                                        error: InvalidDateRange
+                                        message: startDate must be before or equal to endDate.
+
+    /report/monthlyTrend/{agentId}:
+        get:
+            tags: [Reports]
+            operationId: getMonthlyTrend
+            summary: Monthly Trend
+            description: >
+                Provide a normalized month-by-month commission trend for a single financial advisor across a selected date range,
+                including months with zero commission activity.
+
+                Defaults when startDate/endDate are omitted:
+                - startDate: First day of the month, 13 months prior to current month
+                - endDate: Current date
+
+                Ordering is ascending chronological (oldest → newest).
+
+                Date bounds returned by this endpoint are agent-specific.
+            parameters:
+                - name: agentId
+                  in: path
+                  required: true
+                  description: Unique identifier of the financial advisor.
+                  schema:
+                      type: integer
+                      format: int64
+                  example: 1
+                - $ref: "#/components/parameters/StartDate"
+                - $ref: "#/components/parameters/EndDate"
+            responses:
+                "200":
+                    description: Monthly trend for the requested agent.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/MonthlyTrendResponse"
+                "400":
+                    description: Invalid date range.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                            examples:
+                                InvalidDateRange:
+                                    value:
+                                        status: 400
+                                        error: InvalidDateRange
+                                        message: startDate must be before or equal to endDate.
+                "404":
+                    description: Agent not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                            examples:
+                                AgentNotFound:
+                                    value:
+                                        status: 404
+                                        error: AgentNotFound
+                                        message: The requested agent does not exist.
+
+    /report/insuranceCarrierBreakdown:
+        get:
+            tags: [Reports]
+            operationId: getInsuranceCarrierBreakdown
+            summary: Insurance Carrier Breakdown
+            description: >
+                Show how one financial advisor's commissions are distributed across insurance carriers (totals + relative weight),
+                with recency context to identify carrier relationships that have recently gone quiet.
+
+                - agentCarrierRelativeWeight is a percent of the overall aggregated total commission across all agents
+                  for the same date range.
+                - If agentId is omitted, the agent defaults to the statistically "average user" for the selected date range
+                  (closest to the mean total commission).
+
+                Defaults when omitted:
+                - startDate: First day of the month, 13 months prior to current month
+                - endDate: Current date
+
+                Sorting is by agentCarrierRelativeWeight descending.
+
+                Date bounds returned by this endpoint are agent-specific (for the resolved agent).
+            parameters:
+                - name: agentId
+                  in: query
+                  required: false
+                  description: >
+                      Target financial advisor to analyze. If omitted, defaults to the statistically "average user"
+                      for the selected date range (closest to mean total commission).
+                  schema:
+                      type: integer
+                      format: int64
+                  example: 123
+                - $ref: "#/components/parameters/StartDate"
+                - $ref: "#/components/parameters/EndDate"
+            responses:
+                "200":
+                    description: Carrier breakdown for the resolved agent. May return an empty list when no carrier activity exists in-range.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/InsuranceCarrierBreakdownResponse"
+                            examples:
+                                NoCarrierActivityInRange:
+                                    value:
+                                        agentId: 123
+                                        agentName: Taylor Advisor
+                                        startDate: 2024-03-01
+                                        endDate: 2025-03-15
+                                        minStartDate: 2019-01-01
+                                        maxEndDate: 2025-03-15
+                                        agentCarrierBreakdowns: []
+                "400":
+                    description: Invalid date range.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                            examples:
+                                InvalidDateRange:
+                                    value:
+                                        status: 400
+                                        error: InvalidDateRange
+                                        message: startDate must be before or equal to endDate.
+                "404":
+                    description: Agent not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                            examples:
+                                AgentNotFound:
+                                    value:
+                                        status: 404
+                                        error: AgentNotFound
+                                        message: The requested agent does not exist.
+
+components:
+    parameters:
+        StartDate:
+            name: startDate
+            in: query
+            required: false
+            description: >
+                Start date of reporting window (inclusive).
+            schema:
+                type: string
+                format: date
+            example: 2024-08-01
+        EndDate:
+            name: endDate
+            in: query
+            required: false
+            description: >
+                End date of reporting window (inclusive).
+            schema:
+                type: string
+                format: date
+            example: 2025-08-31
+
+    schemas:
+        ErrorResponse:
+            type: object
+            additionalProperties: false
+            required: [status, error, message]
+            properties:
+                status:
+                    type: integer
+                    format: int32
+                    description: HTTP status code.
+                    example: 400
+                error:
+                    type: string
+                    description: Machine-readable error code.
+                    example: InvalidDateRange
+                message:
+                    type: string
+                    description: Human-readable error message.
+                    example: startDate must be before or equal to endDate.
+
+        TopCarrier:
+            type: object
+            additionalProperties: false
+            required: [carrierId, carrierName]
+            properties:
+                carrierId:
+                    type: integer
+                    format: int64
+                    description: Unique identifier of the insurance carrier.
+                    example: 3
+                carrierName:
+                    type: string
+                    example: Everlight
+
+        AgentSummary:
+            type: object
+            additionalProperties: false
+            required:
+                - agentId
+                - agentName
+                - averageMonthlyCommission
+                - totalCommission
+                - averageMonthlyStatementVolume
+                - statementVolume
+                - bestYearMonth
+                - topCarrier
+            properties:
+                agentId:
+                    type: integer
+                    format: int64
+                    description: Unique identifier of the financial advisor.
+                    example: 2
+                agentName:
+                    type: string
+                    example: Taylor Reynolds
+                averageMonthlyCommission:
+                    type: integer
+                    format: int64
+                    description: Average monthly commission for the agent in integer cents.
+                    example: 411205
+                totalCommission:
+                    type: integer
+                    format: int64
+                    description: Total commission for the agent in integer cents.
+                    example: 9834352
+                averageMonthlyStatementVolume:
+                    type: number
+                    description: Average monthly statement volume for the agent.
+                    example: 15.1
+                statementVolume:
+                    type: integer
+                    format: int64
+                    description: Total statement volume for the agent across the range.
+                    example: 64
+                bestYearMonth:
+                    type: string
+                    format: date
+                    description: >
+                        Month (represented as a date) within the requested range with the highest commission total.
+                    example: 2025-05-01
+                topCarrier:
+                    $ref: "#/components/schemas/TopCarrier"
+
+        FinancialAdvisorSummaryResponse:
+            type: object
+            additionalProperties: false
+            required: [minStartDate, maxEndDate, agentSummaries]
+            properties:
+                minStartDate:
+                    type: string
+                    format: date
+                    description: Global minimum selectable start date.
+                    example: 2018-01-01
+                maxEndDate:
+                    type: string
+                    format: date
+                    description: Global maximum selectable end date.
+                    example: 2025-08-31
+                agentSummaries:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/AgentSummary"
+
+        MonthlyCommission:
+            type: object
+            additionalProperties: false
+            required: [yearMonth, totalCommission]
+            properties:
+                yearMonth:
+                    type: string
+                    description: Month label in `MonthName YYYY` format.
+                    example: August 2024
+                totalCommission:
+                    type: integer
+                    format: int64
+                    description: Total commission for the month in integer cents.
+                    example: 1245075
+
+        MonthlyTrendResponse:
+            type: object
+            additionalProperties: false
+            required: [agentId, minStartDate, maxEndDate, monthlyCommissions]
+            properties:
+                agentId:
+                    type: integer
+                    format: int64
+                    example: 2
+                minStartDate:
+                    type: string
+                    format: date
+                    description: Agent-specific minimum selectable start date.
+                    example: 2018-01-01
+                maxEndDate:
+                    type: string
+                    format: date
+                    description: Agent-specific maximum selectable end date.
+                    example: 2025-08-31
+                monthlyCommissions:
+                    type: array
+                    description: Monthly totals for every month in the requested range (including zeros), oldest → newest.
+                    items:
+                        $ref: "#/components/schemas/MonthlyCommission"
+
+        AgentCarrierBreakdown:
+            type: object
+            additionalProperties: false
+            required:
+                [
+                    carrierId,
+                    carrierName,
+                    agentCarrierTotalCommission,
+                    agentCarrierRelativeWeight,
+                ]
+            properties:
+                carrierId:
+                    type: integer
+                    format: int64
+                    example: 1
+                carrierName:
+                    type: string
+                    example: Acme Life
+                agentCarrierTotalCommission:
+                    type: integer
+                    format: int64
+                    description: Total commission for the agent-carrier pair in integer cents.
+                    example: 4025055
+                agentCarrierRelativeWeight:
+                    type: number
+                    description: >
+                        Relative weight as a percentage [0,100] of the overall aggregated total commission across all agents
+                        for the same date range.
+                    example: 18.5
+                lastStatementMonthWithCommission:
+                    type:
+                        - string
+                        - "null"
+                    description: >
+                        The last month in-range where commission > 0 for this carrier (nullable when never > 0 in-range).
+                        Month label uses the same `MonthName YYYY` convention as monthly trend.
+                    example: March 2025
+
+        InsuranceCarrierBreakdownResponse:
+            type: object
+            additionalProperties: false
+            required:
+                [
+                    agentId,
+                    agentName,
+                    minStartDate,
+                    maxEndDate,
+                    agentCarrierBreakdowns,
+                ]
+            properties:
+                agentId:
+                    type: integer
+                    format: int64
+                    description: Resolved agent identifier (requested agentId or the computed "average user").
+                    example: 4
+                agentName:
+                    type: string
+                    example: Taylor Reynolds
+                minStartDate:
+                    type: string
+                    format: date
+                    description: Agent-specific minimum selectable start date.
+                    example: 2019-01-01
+                maxEndDate:
+                    type: string
+                    format: date
+                    description: Agent-specific maximum selectable end date.
+                    example: 2025-03-15
+                agentCarrierBreakdowns:
+                    type: array
+                    description: Carrier-level commission totals sorted by relative weight descending.
+                    items:
+                        $ref: "#/components/schemas/AgentCarrierBreakdown"

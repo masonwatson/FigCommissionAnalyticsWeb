@@ -1,0 +1,54 @@
+<div class="tabbed-shell">
+  <nav aria-label="Report navigation">
+    <kendo-tabstrip
+      (tabSelect)="onTabSelect($event)"
+      [class.tabbed-shell__tabstrip--active-0]="selectedTabIndex() === 0"
+      [class.tabbed-shell__tabstrip--active-1]="selectedTabIndex() === 1"
+      [class.tabbed-shell__tabstrip--active-2]="selectedTabIndex() === 2"
+    >
+      <kendo-tabstrip-tab
+        title="Financial Advisor Summary"
+        [selected]="selectedTabIndex() === 0"
+      >
+        <ng-template kendoTabTitleTemplate>
+          <span
+            class="tabbed-shell__tab-label"
+            [class.tabbed-shell__tab-label--active]="selectedTabIndex() === 0"
+          >
+            Financial Advisor Summary
+          </span>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab
+        title="Monthly Trend"
+        [selected]="selectedTabIndex() === 1"
+      >
+        <ng-template kendoTabTitleTemplate>
+          <span
+            class="tabbed-shell__tab-label"
+            [class.tabbed-shell__tab-label--active]="selectedTabIndex() === 1"
+          >
+            Monthly Trend
+          </span>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab
+        title="Insurance Carrier Breakdown"
+        [selected]="selectedTabIndex() === 2"
+      >
+        <ng-template kendoTabTitleTemplate>
+          <span
+            class="tabbed-shell__tab-label"
+            [class.tabbed-shell__tab-label--active]="selectedTabIndex() === 2"
+          >
+            Insurance Carrier Breakdown
+          </span>
+        </ng-template>
+      </kendo-tabstrip-tab>
+    </kendo-tabstrip>
+  </nav>
+
+  <section class="tabbed-shell__content" aria-label="Selected report content">
+    <router-outlet></router-outlet>
+  </section>
+</div>

@@ -1,0 +1,40 @@
+<kendo-grid
+  [data]="gridRows"
+  scrollable="none"
+  [sortable]="{ mode: 'single', allowUnsort: true }"
+  [sort]="sort"
+  (sortChange)="onSortChange($event)"
+  class="financial-advisor-summary-grid"
+>
+  <kendo-grid-column field="agentName" title="Agent Name" [width]="180"></kendo-grid-column>
+  <kendo-grid-column
+    field="averageMonthlyCommission"
+    title="Average Monthly Commission"
+    [width]="260"
+  >
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.averageMonthlyCommission / 100 | currency: 'USD':'symbol':'1.2-2' }}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="totalCommission" title="Total Commission" [width]="190">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.totalCommission / 100 | currency: 'USD':'symbol':'1.2-2' }}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    field="averageMonthlyStatementVolume"
+    title="Average Monthly Statement Volume"
+    [width]="300"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="statementVolume"
+    title="Statement Volume"
+    [width]="190"
+  ></kendo-grid-column>
+  <kendo-grid-column field="bestYearMonth" title="Best Year Month" [width]="180">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ formatBestYearMonth(dataItem.bestYearMonth) }}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="topCarrierName" title="Top Carrier Name" [width]="220"></kendo-grid-column>
+</kendo-grid>

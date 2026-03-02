@@ -1,0 +1,15 @@
+<div class="shared-dropdown">
+  <label class="shared-dropdown__label" [for]="dropdownId()">{{ label() }}</label>
+  <kendo-dropdownlist
+    [id]="dropdownId()"
+    [data]="filteredOptions()"
+    [textField]="textField()"
+    [valueField]="valueField()"
+    [value]="value()"
+    [filterable]="filterable()"
+    [valuePrimitive]="true"
+    (filterChange)="onFilterChange($event)"
+    (blur)="onBlur()"
+    (valueChange)="onValueChange($event)"
+  ></kendo-dropdownlist>
+</div>

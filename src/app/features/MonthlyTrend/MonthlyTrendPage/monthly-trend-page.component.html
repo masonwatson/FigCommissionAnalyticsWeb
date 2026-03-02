@@ -1,0 +1,42 @@
+<section class="monthly-trend-page" aria-label="Monthly trend">
+  <header class="monthly-trend-page__header">
+    <h1 class="monthly-trend-page__title">Monthly Trend</h1>
+    <p class="monthly-trend-page__subtitle">Month-by-month commission totals</p>
+  </header>
+
+  <div class="monthly-trend-page__filters">
+    <div class="monthly-trend-page__agent-filter">
+      <app-shared-dropdown
+        dropdownId="monthly-trend-agent-dropdown"
+        label="Agent"
+        [options]="(agentOptions$ | async) ?? []"
+        [value]="(selectedAgentId$ | async) ?? 0"
+        textField="agentName"
+        valueField="agentId"
+        (valueSelected)="onAgentSelected($event)"
+      ></app-shared-dropdown>
+    </div>
+
+    <div class="monthly-trend-page__date-range">
+      <app-date-range-slider
+        [min]="(sliderMin$ | async) ?? 0"
+        [max]="(sliderMax$ | async) ?? 11"
+        [tickTitle]="(sliderTickTitle$ | async) ?? defaultTickTitle"
+        [smallStep]="1"
+        [largeStep]="1"
+        [value]="dateRange"
+        (valueSelected)="onDateRangeSelected($event)"
+      ></app-date-range-slider>
+    </div>
+  </div>
+
+  @if (vm$ | async; as vm) {
+    @if (vm.error) {
+      <p class="monthly-trend-page__status monthly-trend-page__status--error">{{ vm.error }}</p>
+    }
+
+    <app-monthly-trend-bar-chart [rows]="vm.rows"></app-monthly-trend-bar-chart>
+  } @else {
+    <app-monthly-trend-bar-chart [rows]="[]"></app-monthly-trend-bar-chart>
+  }
+</section>

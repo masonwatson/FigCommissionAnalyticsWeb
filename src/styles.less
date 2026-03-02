@@ -1,1 +1,68 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+	--kendo-color-primary: #2f56ff;
+	--kendo-color-primary-hover: #2448e8;
+	--kendo-color-primary-active: #1b3dd1;
+
+	--kendo-color-app-surface: #f4f8ff;
+	--kendo-color-surface: #ffffff;
+	--kendo-color-surface-alt: #eef4ff;
+	--kendo-color-base: #eef4ff;
+	--kendo-color-base-hover: #e4edff;
+	--kendo-color-base-active: #dce7ff;
+	--kendo-color-base-subtle: #f7f9ff;
+
+	--kendo-color-border: #d7e2ff;
+	--kendo-color-border-alt: #e6edff;
+
+	--kendo-color-on-app-surface: #0f1d40;
+	--kendo-color-on-surface: #152653;
+	--kendo-color-on-base: #2d3d67;
+	--kendo-color-subtle: #5f739f;
+
+	--kendo-color-info: #2f56ff;
+	--kendo-color-info-subtle: #edf2ff;
+}
+
+html,
+body {
+	background: var(--kendo-color-app-surface);
+	color: var(--kendo-color-on-app-surface);
+}
+
+.k-button-solid-primary {
+	background-color: var(--kendo-color-primary);
+	border-color: var(--kendo-color-primary);
+	color: #ffffff;
+}
+
+.k-button-solid-primary:hover {
+	background-color: var(--kendo-color-primary-hover);
+	border-color: var(--kendo-color-primary-hover);
+}
+
+.k-input-solid,
+.k-picker-solid,
+.k-dropdownlist,
+.k-combobox {
+	background: var(--kendo-color-surface);
+	border-color: var(--kendo-color-border);
+}
+
+.k-input-solid:focus,
+.k-picker-solid.k-focus,
+.k-dropdownlist.k-focus,
+.k-combobox.k-focus {
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--kendo-color-primary) 20%, transparent);
+	border-color: var(--kendo-color-primary);
+}
+
+.k-grid,
+.k-chart,
+.k-card {
+	background: var(--kendo-color-surface);
+}
+
+.k-grid .k-grid-header,
+.k-grid .k-table-th {
+	background: var(--kendo-color-base-subtle);
+}

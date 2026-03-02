@@ -1,0 +1,36 @@
+<section class="financial-advisor-summary-page" aria-label="Financial advisor summary">
+  <header class="financial-advisor-summary-page__header">
+    <h1 class="financial-advisor-summary-page__title">Financial Advisor Summary</h1>
+    <p class="financial-advisor-summary-page__subtitle">
+      Commission performance and activity overview by advisor
+    </p>
+  </header>
+
+  <div class="financial-advisor-summary-page__date-range">
+    <app-date-range-slider
+      [min]="(sliderMin$ | async) ?? 0"
+      [max]="(sliderMax$ | async) ?? 11"
+      [tickTitle]="(sliderTickTitle$ | async) ?? defaultTickTitle"
+      [smallStep]="1"
+      [largeStep]="1"
+      [value]="dateRange"
+      (valueSelected)="onDateRangeSelected($event)"
+    ></app-date-range-slider>
+  </div>
+
+  @if (vm$ | async; as vm) {
+    @if (vm.error) {
+      <p class="financial-advisor-summary-page__status financial-advisor-summary-page__status--error">
+        {{ vm.error }}
+      </p>
+    }
+
+    <div class="financial-advisor-summary-page__grid-wrap">
+      <app-financial-advisor-summary-grid [rows]="vm.rows"></app-financial-advisor-summary-grid>
+    </div>
+  } @else {
+    <div class="financial-advisor-summary-page__grid-wrap">
+      <app-financial-advisor-summary-grid [rows]="[]"></app-financial-advisor-summary-grid>
+    </div>
+  }
+</section>

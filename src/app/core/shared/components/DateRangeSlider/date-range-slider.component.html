@@ -1,0 +1,11 @@
+<div class="date-range-slider">
+  <kendo-rangeslider
+    [min]="min()"
+    [max]="max()"
+    [title]="effectiveTickTitle()"
+    [smallStep]="effectiveSmallStep()"
+    [largeStep]="effectiveLargeStep()"
+    [value]="value()"
+    (valueChange)="onValueChange($event)"
+  ></kendo-rangeslider>
+</div>

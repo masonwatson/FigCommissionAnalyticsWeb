@@ -1,0 +1,47 @@
+<section class="insurance-carrier-breakdown-page" aria-label="Insurance carrier breakdown">
+  <header class="insurance-carrier-breakdown-page__header">
+    <h1 class="insurance-carrier-breakdown-page__title">Insurance Carrier Breakdown</h1>
+    <p class="insurance-carrier-breakdown-page__subtitle">
+      Commission distribution by insurance carrier
+    </p>
+  </header>
+
+  <div class="insurance-carrier-breakdown-page__filters">
+    <div class="insurance-carrier-breakdown-page__agent-filter">
+      <app-shared-dropdown
+        dropdownId="insurance-carrier-agent-dropdown"
+        label="Agent"
+        defaultItemLabel="Total Advisor"
+        [options]="(agentOptions$ | async) ?? []"
+        [value]="(selectedAgentId$ | async) ?? 0"
+        textField="agentName"
+        valueField="agentId"
+        (valueSelected)="onAgentSelected($event)"
+      ></app-shared-dropdown>
+    </div>
+
+    <div class="insurance-carrier-breakdown-page__date-range">
+      <app-date-range-slider
+        [min]="(sliderMin$ | async) ?? 0"
+        [max]="(sliderMax$ | async) ?? 11"
+        [tickTitle]="(sliderTickTitle$ | async) ?? defaultTickTitle"
+        [smallStep]="1"
+        [largeStep]="1"
+        [value]="dateRange"
+        (valueSelected)="onDateRangeSelected($event)"
+      ></app-date-range-slider>
+    </div>
+  </div>
+
+  @if (vm$ | async; as vm) {
+    @if (vm.error) {
+      <p class="insurance-carrier-breakdown-page__status insurance-carrier-breakdown-page__status--error">
+        {{ vm.error }}
+      </p>
+    }
+
+    <app-insurance-carrier-pie-chart [rows]="vm.rows"></app-insurance-carrier-pie-chart>
+  } @else {
+    <app-insurance-carrier-pie-chart [rows]="[]"></app-insurance-carrier-pie-chart>
+  }
+</section>
