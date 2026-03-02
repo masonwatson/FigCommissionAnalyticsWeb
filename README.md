@@ -1,59 +1,52 @@
-# FigCommissionAnalytics
+# Fig Commission Analytics System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.3.
+## Project Setup
 
-## Development server
-
-To start a local development server, run:
+### **1.1. Clone and Run solution with IIS**
 
 ```bash
-ng serve
+cd C:\
+git clone https://github.com/masonwatson/FigCommissionAnalyticsAPI.git
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. Navigate to C:\FigCommissionAnalyticsAPI\engine\FigCommissionAnalyticsEngine\
+2. Open the .sln
+3. Build the Solution
+4. Make sure FigCommissionAnalyticsEngine.API is the startup project
+5. Run with IIS Express
+6. Copy the localhost string (*e.g. https://localhost:44391*)
 
-## Code scaffolding
+![Alt text](docs/Images/localhost-iis-express-point.png)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### **1.2. Or Clone and Restore**
 
 ```bash
-ng generate component component-name
+cd C:\
+git clone https://github.com/masonwatson/FigCommissionAnalyticsAPI.git
+cd FigCommissionAnalyticsAPI/engine/FigCommissionAnalyticsEngine
+dotnet restore
+cd FigCommissionAnalyticsEngine.API
+dotnet run
 ```
+1. Copy the localhost port url (*e.g. http://localhost:5099*)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+![Alt text](docs/Images/localhost-dotnet-run-point.png)
 
+### **2. Navigate to the Website**
+
+https://masonwatson.github.io/FigCommissionAnalyticsWeb/financial-advisor-summary
+
+### **3. Enter the Localhost Port Url into the Website's Input**
+
+![Alt text](docs/Images/localhost-website-point.png)
+
+## Troubleshooting Client Side
+
+If website does not work, please clone the FigCommissionAnalyticsWeb repo
 ```bash
-ng generate --help
+cd C:\
+git clone https://github.com/masonwatson/FigCommissionAnalyticsWeb.git
+cd FigCommissionAnalyticsWeb
+npm install
+ng serve --open
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
