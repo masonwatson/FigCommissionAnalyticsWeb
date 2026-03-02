@@ -50,8 +50,9 @@ export class ApiBaseUrlService {
     const isLocalProxyTarget =
       /^(localhost|127\.0\.0\.1)$/i.test(parsed.hostname) &&
       (parsed.port === '44391' || parsed.port === '');
+    const canUseLocalProxy = this.shouldUseLocalProxy();
 
-    if (isLocalProxyTarget) {
+    if (isLocalProxyTarget && canUseLocalProxy) {
       if (!normalizedPath || normalizedPath === '/') {
         return '/api/v1';
       }
@@ -95,11 +96,21 @@ export class ApiBaseUrlService {
     const isLocalProxyTarget =
       /^(localhost|127\.0\.0\.1)$/i.test(parsed.hostname) &&
       (parsed.port === '44391' || parsed.port === '');
+    const canUseLocalProxy = this.shouldUseLocalProxy();
 
-    if (isLocalProxyTarget) {
+    if (isLocalProxyTarget && canUseLocalProxy) {
       return '/api/health';
     }
 
     return `${parsed.origin}/api/health`;
+  }
+
+  private shouldUseLocalProxy(): boolean {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    const hostname = window.location.hostname;
+    return /^(localhost|127\.0\.0\.1)$/i.test(hostname);
   }
 }
