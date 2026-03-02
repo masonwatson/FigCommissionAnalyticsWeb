@@ -8,6 +8,7 @@ export type MonthlyTrendRow = {
 export const MonthlyTrendActions = createActionGroup({
   source: 'MonthlyTrend',
   events: {
+    'Reset Requested': emptyProps(),
     'Load Requested': emptyProps(),
     'Date Range Changed': props<{ range: [number, number] }>(),
     'Date Range Cleared': emptyProps(),

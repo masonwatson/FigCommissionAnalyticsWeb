@@ -26,6 +26,7 @@ export const initialState: InsuranceCarrierBreakdownState = {
 
 export const insuranceCarrierBreakdownReducer = createReducer(
   initialState,
+  on(InsuranceCarrierBreakdownActions.resetRequested, () => ({ ...initialState })),
   on(InsuranceCarrierBreakdownActions.loadRequested, (state) => ({
     ...state,
     isLoading: true,

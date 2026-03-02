@@ -10,6 +10,7 @@ export type InsuranceCarrierRow = {
 export const InsuranceCarrierBreakdownActions = createActionGroup({
   source: 'InsuranceCarrierBreakdown',
   events: {
+    'Reset Requested': emptyProps(),
     'Load Requested': emptyProps(),
     'Date Range Changed': props<{ range: [number, number] }>(),
     'Date Range Cleared': emptyProps(),

@@ -16,7 +16,7 @@ git clone https://github.com/masonwatson/FigCommissionAnalyticsAPI.git
 5. Run with IIS Express
 6. Copy the localhost string (*e.g. https://localhost:44391*)
 
-![Alt text](docs/Images/localhost-iis-express-point.png)
+![Alt text](images/localhost-iis-express-point.png)
 
 ### **1.2. Or Clone and Restore**
 
@@ -30,7 +30,7 @@ dotnet run
 ```
 1. Copy the localhost port url (*e.g. http://localhost:5099*)
 
-![Alt text](docs/Images/localhost-dotnet-run-point.png)
+![Alt text](images/localhost-dotnet-run-point.png)
 
 ### **2. Navigate to the Website**
 
@@ -38,7 +38,7 @@ https://masonwatson.github.io/FigCommissionAnalyticsWeb/financial-advisor-summar
 
 ### **3. Enter the Localhost Port Url into the Website's Input**
 
-![Alt text](docs/Images/localhost-website-point.png)
+![Alt text](images/localhost-website-point.png)
 
 ## Troubleshooting Client Side
 

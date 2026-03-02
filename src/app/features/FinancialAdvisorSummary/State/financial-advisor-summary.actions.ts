@@ -15,6 +15,7 @@ export type FinancialAdvisorRow = {
 export const FinancialAdvisorSummaryActions = createActionGroup({
   source: 'FinancialAdvisorSummary',
   events: {
+    'Reset Requested': emptyProps(),
     'Load Requested': emptyProps(),
     'Date Range Changed': props<{ range: [number, number] }>(),
     'Date Range Cleared': emptyProps(),

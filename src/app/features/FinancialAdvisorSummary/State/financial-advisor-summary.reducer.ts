@@ -21,6 +21,7 @@ export const initialState: FinancialAdvisorSummaryState = {
 
 export const financialAdvisorSummaryReducer = createReducer(
   initialState,
+  on(FinancialAdvisorSummaryActions.resetRequested, () => ({ ...initialState })),
   on(FinancialAdvisorSummaryActions.loadRequested, (state) => ({
     ...state,
     isLoading: true,
