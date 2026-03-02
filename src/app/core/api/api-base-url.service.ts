@@ -25,8 +25,8 @@ export class ApiBaseUrlService {
     this.configuration.basePath = this.normalizeBaseUrl(this.fallbackInputValue);
   }
 
-  getHealthUrl(useFallbackBaseUrl = false): string {
-    const source = useFallbackBaseUrl ? this.fallbackInputValue : this._inputValue();
+  getHealthUrl(useFallbackBaseUrl = false, explicitInput?: string): string {
+    const source = explicitInput ?? (useFallbackBaseUrl ? this.fallbackInputValue : this._inputValue());
     return this.normalizeHealthUrl(source);
   }
 

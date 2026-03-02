@@ -23,6 +23,7 @@ export const initialState: MonthlyTrendState = {
 
 export const monthlyTrendReducer = createReducer(
   initialState,
+  on(MonthlyTrendActions.resetRequested, () => ({ ...initialState })),
   on(MonthlyTrendActions.loadRequested, (state) => ({
     ...state,
     isLoading: true,

@@ -23,6 +23,7 @@ export const appReducer = createReducer(
   })),
   on(AppActions.healthCheckRequested, (state) => ({
     ...state,
+    healthStatus: null,
     isCheckingHealth: true,
     healthError: null,
   })),
@@ -34,6 +35,7 @@ export const appReducer = createReducer(
   })),
   on(AppActions.healthCheckFailed, (state, { error }) => ({
     ...state,
+    healthStatus: null,
     isCheckingHealth: false,
     healthError: error,
   })),

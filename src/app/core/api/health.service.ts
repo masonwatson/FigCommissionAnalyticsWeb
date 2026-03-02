@@ -34,6 +34,7 @@ export class HealthService extends BaseService {
 			context?: HttpContext;
 			transferCache?: boolean;
 			useFallbackBaseUrl?: boolean;
+			baseUrlInput?: string;
 		},
 	): Observable<HealthResponse>;
 	getHealth(
@@ -44,6 +45,7 @@ export class HealthService extends BaseService {
 			context?: HttpContext;
 			transferCache?: boolean;
 			useFallbackBaseUrl?: boolean;
+			baseUrlInput?: string;
 		},
 	): Observable<HttpResponse<HealthResponse>>;
 	getHealth(
@@ -54,6 +56,7 @@ export class HealthService extends BaseService {
 			context?: HttpContext;
 			transferCache?: boolean;
 			useFallbackBaseUrl?: boolean;
+			baseUrlInput?: string;
 		},
 	): Observable<HttpEvent<HealthResponse>>;
 	getHealth(
@@ -64,6 +67,7 @@ export class HealthService extends BaseService {
 			context?: HttpContext;
 			transferCache?: boolean;
 			useFallbackBaseUrl?: boolean;
+			baseUrlInput?: string;
 		},
 	): Observable<any> {
 		let localVarHeaders = this.defaultHeaders;
@@ -93,7 +97,10 @@ export class HealthService extends BaseService {
 			}
 		}
 
-		const localVarPath = this.apiBaseUrlService.getHealthUrl(!!options?.useFallbackBaseUrl);
+		const localVarPath = this.apiBaseUrlService.getHealthUrl(
+			!!options?.useFallbackBaseUrl,
+			options?.baseUrlInput,
+		);
 		const { withCredentials } = this.configuration;
 
 		return this.httpClient.request<HealthResponse>('get', localVarPath, {

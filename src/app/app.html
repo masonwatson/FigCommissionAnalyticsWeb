@@ -33,12 +33,16 @@
 				<button
 					type="submit"
 					class="app-fixed-textbox__submit"
-					[disabled]="!canSubmitApiBaseUrl()"
+					[disabled]="!canSubmitApiBaseUrl() || isSubmittingApiBaseUrl()"
 				>
 					Submit
 				</button>
 			</form>
+			@if (apiBaseUrlSubmitError()) {
+				<p class="app-fixed-textbox__hint app-fixed-textbox__hint--error">{{ apiBaseUrlSubmitError() }}</p>
+			} @else {
 			<p class="app-fixed-textbox__hint">Submit to unlock the app.</p>
+			}
 		</div>
 	}
 }

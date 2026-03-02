@@ -21,6 +21,13 @@ export const initialFiltersState: FiltersState = {
 
 export const filtersReducer = createReducer(
   initialFiltersState,
+  on(FiltersActions.resetRequested, () => ({
+    ...initialFiltersState,
+    selectedAgentByPage: {
+      monthlyTrend: null,
+      insuranceCarrierBreakdown: null,
+    },
+  })),
   on(FiltersActions.loadAllAgentsRequested, (state) => ({
     ...state,
     isLoadingAgents: true,
