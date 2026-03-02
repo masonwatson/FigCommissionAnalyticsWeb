@@ -14,9 +14,12 @@ import { InsuranceCarrierBreakdownEffects } from './features/InsuranceCarrierBre
 import { insuranceCarrierBreakdownReducer } from './features/InsuranceCarrierBreakdown/State/insurance-carrier-breakdown.reducer';
 import { provideStore } from '@ngrx/store';
 import { provideState } from '@ngrx/store';
-import { provideApi } from './core/api/generated/provide-api';
+import { Configuration } from './core/api/generated/configuration';
 import { filtersReducer } from './core/state/filters/filters.recucer';
 import { FiltersEffects } from './core/state/filters/filters.effects';
+import { ApiBaseUrlService } from './core/api/api-base-url.service';
+import { appReducer } from './core/state/app/app.reducer';
+import { AppEffects } from './core/state/app/app.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,7 +29,11 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
-    provideApi('/api/v1'),
+    {
+      provide: Configuration,
+      useFactory: (apiBaseUrlService: ApiBaseUrlService) => apiBaseUrlService.configuration,
+      deps: [ApiBaseUrlService],
+    },
     provideStore(),
 	provideStoreDevtools({
       maxAge: 50,
@@ -38,9 +45,11 @@ export const appConfig: ApplicationConfig = {
     provideState('monthlyTrend', monthlyTrendReducer),
     provideState('insuranceCarrierBreakdown', insuranceCarrierBreakdownReducer),
     provideState('filters', filtersReducer),
+    provideState('app', appReducer),
     provideEffects([FinancialAdvisorSummaryEffects]),
     provideEffects([MonthlyTrendEffects]),
     provideEffects([InsuranceCarrierBreakdownEffects]),
-    provideEffects([FiltersEffects])
+    provideEffects([FiltersEffects]),
+    provideEffects([AppEffects]),
 ]
 };

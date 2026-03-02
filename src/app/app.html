@@ -1,1 +1,44 @@
-<router-outlet />
+<div class="app-shell" [attr.inert]="!isAppUnlocked() ? '' : null">
+	<router-outlet />
+</div>
+
+@if (!isAppUnlocked()) {
+	<div class="app-interaction-overlay" aria-hidden="true"></div>
+}
+
+@if (shouldShowApiBaseUrlInput()) {
+	@if (isApiBaseUrlSubmitted()) {
+		<button
+			type="button"
+			class="app-fixed-textbox-collapsed"
+			(click)="onApiBaseUrlEdit()"
+			aria-label="Edit API base URL"
+		>
+			<span class="app-fixed-textbox-collapsed__label">API URL</span>
+			<span class="app-fixed-textbox-collapsed__value">{{ submittedApiBaseUrl() || 'Not set' }}</span>
+		</button>
+	} @else {
+		<div class="app-fixed-textbox">
+			<label class="app-fixed-textbox__label" for="app-fixed-input">Provide Localhost here</label>
+			<form class="app-fixed-textbox__controls" (submit)="onApiBaseUrlSubmit($event)">
+				<input
+					id="app-fixed-input"
+					type="text"
+					class="app-fixed-textbox__input"
+					aria-label="Fixed localhost input"
+					[value]="pendingApiBaseUrl()"
+					(input)="onApiBaseUrlInput($any($event.target).value)"
+					placeholder="localhost:44391 or https://host (auto-adds /api/v1)"
+				/>
+				<button
+					type="submit"
+					class="app-fixed-textbox__submit"
+					[disabled]="!canSubmitApiBaseUrl()"
+				>
+					Submit
+				</button>
+			</form>
+			<p class="app-fixed-textbox__hint">Submit to unlock the app.</p>
+		</div>
+	}
+}

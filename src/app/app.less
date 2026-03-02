@@ -39,6 +39,9 @@
     'Segoe UI Emoji',
     'Segoe UI Symbol';
   box-sizing: border-box;
+  display: block;
+  position: relative;
+  isolation: isolate;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -187,4 +190,117 @@ main {
     background: var(--red-to-pink-to-purple-horizontal-gradient);
     margin-block: 1.5rem;
   }
+}
+
+.app-fixed-textbox {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  width: min(22rem, calc(100vw - 2rem));
+  padding: 0.6rem;
+  border: 1px solid var(--kendo-color-border, #d7e2ff);
+  border-radius: 0.75rem;
+  background: var(--kendo-color-surface, #ffffff);
+  box-shadow: 0 8px 20px rgb(15 29 64 / 12%);
+  z-index: 21000;
+}
+
+.app-interaction-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(15 29 64 / 18%);
+  backdrop-filter: blur(1px);
+  z-index: 20000;
+}
+
+.app-fixed-textbox__label {
+  display: block;
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--kendo-color-subtle, #5f739f);
+}
+
+.app-fixed-textbox__controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.app-fixed-textbox__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 2.5rem;
+  font: inherit;
+  color: var(--kendo-color-on-surface, #152653);
+  background: var(--kendo-color-surface, #ffffff);
+  border: 1px solid var(--kendo-color-border, #d7e2ff);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  box-sizing: border-box;
+}
+
+.app-fixed-textbox__input:focus {
+  outline: 2px solid color-mix(in srgb, var(--kendo-color-primary, #2f56ff) 30%, transparent);
+  outline-offset: 1px;
+}
+
+.app-fixed-textbox__submit {
+  height: 2.5rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--kendo-color-primary, #2f56ff);
+  border-radius: 0.5rem;
+  background: var(--kendo-color-primary, #2f56ff);
+  color: #fff;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.app-fixed-textbox__submit:hover {
+  background: var(--kendo-color-primary-hover, #2448e8);
+  border-color: var(--kendo-color-primary-hover, #2448e8);
+}
+
+.app-fixed-textbox__hint {
+  margin-top: 0.45rem;
+  font-size: 0.75rem;
+  color: var(--kendo-color-subtle, #5f739f);
+}
+
+.app-fixed-textbox-collapsed {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  max-width: min(24rem, calc(100vw - 2rem));
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--kendo-color-border, #d7e2ff);
+  border-radius: 0.75rem;
+  background: var(--kendo-color-surface, #ffffff);
+  box-shadow: 0 8px 20px rgb(15 29 64 / 12%);
+  z-index: 21000;
+  cursor: pointer;
+  text-align: left;
+}
+
+.app-fixed-textbox-collapsed__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--kendo-color-subtle, #5f739f);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.app-fixed-textbox-collapsed__value {
+  font-size: 0.825rem;
+  color: var(--kendo-color-on-surface, #152653);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
