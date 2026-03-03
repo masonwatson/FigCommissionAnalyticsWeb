@@ -14,7 +14,7 @@ git clone https://github.com/masonwatson/FigCommissionAnalyticsAPI.git
 3. Build the Solution
 4. Make sure FigCommissionAnalyticsEngine.API is the startup project
 5. Run with IIS Express
-6. Copy the localhost string (*e.g. https://localhost:44391*)
+6. Copy the localhost base url with the port number (*e.g. https://localhost:44391*)
 
 ![Alt text](images/localhost-iis-express-point.png)
 
@@ -28,7 +28,7 @@ dotnet restore
 cd FigCommissionAnalyticsEngine.API
 dotnet run
 ```
-1. Copy the localhost port url (*e.g. http://localhost:5099*)
+1. Copy the localhost base url with the port number (*e.g. http://localhost:5099*)
 
 ![Alt text](images/localhost-dotnet-run-point.png)
 
@@ -36,13 +36,13 @@ dotnet run
 
 https://masonwatson.github.io/FigCommissionAnalyticsWeb/financial-advisor-summary
 
-### **3. Enter the Localhost Port Url into the Website's Input**
+### **3. Enter the Localhost Base Url with the Port Number into the Website's Input**
 
 ![Alt text](images/localhost-website-point.png)
 
 ## Troubleshooting Client Side
 
-If website does not work, please clone the FigCommissionAnalyticsWeb repo
+If the website does not accept the localhost, it might be due to a CORS error. In that case, please clone the FigCommissionAnalyticsWeb repo and run it locally.
 ```bash
 cd C:\
 git clone https://github.com/masonwatson/FigCommissionAnalyticsWeb.git
