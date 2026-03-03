@@ -134,7 +134,7 @@ export class InsuranceCarrierBreakdownEffects {
 
   private getDefaultBaseMonth(): Date {
     const today = new Date();
-    return new Date(today.getFullYear(), today.getMonth() - 13, 1);
+    return new Date(today.getFullYear(), today.getMonth() - 12, 1);
   }
 
   private toIsoDate(value: Date): string {
