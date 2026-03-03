@@ -37,7 +37,7 @@ dotnet run
 https://masonwatson.github.io/FigCommissionAnalyticsWeb/financial-advisor-summary
 
 ### **3. Click Allow On the Popup**
-Please click the "allow" option on this popup, as it allows for the web-hosted client side to talk to the locally-hosted API. If you would rather run the client side locally, there are additional instructions below; there will be watermarks on the UI as I used Kendo UI.
+Please click the "allow" option on this popup, as it allows for the web-hosted client side to talk to the locally-hosted API. If you would rather run the client side locally, there are additional instructions below on how to do so. Note, if running the client side locally, there will be Kendo watermarks on the UI.
 
 ![Alt text](images/website-allow-for-cors-point.png)
 
