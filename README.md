@@ -16,7 +16,7 @@ git clone https://github.com/masonwatson/FigCommissionAnalyticsAPI.git
 5. Run with IIS Express
 6. Copy the localhost base url with the port number (*e.g. https://localhost:44391*)
 
-![Alt text](docs/Images/localhost-iis-express-point.png)
+![Alt text](images/localhost-iis-express-point.png)
 
 ### **1.2. Or Clone and Restore**
 
