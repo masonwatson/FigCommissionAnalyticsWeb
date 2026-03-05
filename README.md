@@ -51,6 +51,9 @@ If you are already running the API locally with IIS Express, there's a chance th
 ## Troubleshooting Client Side
 
 If the website does not accept the localhost, it might be due to a CORS error. In that case, please clone the FigCommissionAnalyticsWeb repo and run it locally.
+
+In addition to running the command below, you can change the api "target" in the proxy.conf.json file, located in FigCommissionAnalyticsWeb, to match the localhost of the running API. Doing this will allow the web client to connect automatically to the API when initializing.
+
 ```bash
 cd C:\
 git clone https://github.com/masonwatson/FigCommissionAnalyticsWeb.git
@@ -58,5 +61,3 @@ cd FigCommissionAnalyticsWeb
 npm install
 ng serve --open
 ```
-
-In addition to running the command above, you can change the api "target" in the [Proxy Config] file to match the localhost of the running API. Doing this will allow the web client to connect automatically to the API when initializing.
