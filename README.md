@@ -58,3 +58,5 @@ cd FigCommissionAnalyticsWeb
 npm install
 ng serve --open
 ```
+
+In addition to running the command above, you can change the api "target" in the [Proxy Config] file to match the localhost of the running API. Doing this will allow the web client to connect automatically to the API when initializing.
