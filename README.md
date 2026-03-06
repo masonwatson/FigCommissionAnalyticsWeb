@@ -50,11 +50,11 @@ If you are already running the API locally with IIS Express, there's a chance th
 
 ![Local host website pointer](images/localhost-website-point.png)
 
-## Troubleshooting Client Side
+## Running Client Side Locally
 
 If the website does not accept the localhost, it might be due to a CORS error. In that case, please clone the FigCommissionAnalyticsWeb repo and run it locally.
 
-In addition to running the command below, you can change the target in the [proxy.conf.json](https://github.com/masonwatson/FigCommissionAnalyticsWeb/blob/master/proxy.conf.json) file, to **match the localhost of the running API**. Doing this will allow the web client to **connect automatically** to the API when initializing.
+In addition to running the command below, you can change the target in the [proxy.conf.json](https://github.com/masonwatson/FigCommissionAnalyticsWeb/blob/master/proxy.conf.json) file, to **match the localhost of the running API**. Doing this will allow the web client to **"connect automatically"** to the API when initializing, instead of inputting the API base url after the app has rendered.
 
 ![Code change target](images/code-change-target.png)
 
